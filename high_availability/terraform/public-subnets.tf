@@ -6,7 +6,7 @@ resource "aws_subnet" "10010_us_east_1a_public" {
   map_public_ip_on_launch = true
   depends_on = ["aws_internet_gateway.default_igw"]
   tags { 
-    Name = "10.0.1.0 - us-east-1a - public" 
+    Name = "${var.vpc_name} - 10.0.1.0 - us-east-1a - public" 
   }
 }
 
@@ -18,7 +18,7 @@ resource "aws_subnet" "10020_us_east_1b_public" {
   map_public_ip_on_launch = true
   depends_on = ["aws_internet_gateway.default_igw"]
   tags { 
-    Name = "10.0.2.0 - us-east-1b - public" 
+    Name = "${var.vpc_name} - 10.0.2.0 - us-east-1b - public" 
   }
 }
 
