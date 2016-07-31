@@ -1,0 +1,60 @@
+- hosts: ec2
+  serial: 1
+  become: yes
+  become_user: root
+  become_method: sudo
+  gather_facts: yes
+  tasks:
+  - name: check if EPEL is installed
+    shell: /usr/bin/rpmquery epel-release
+    register: epel_installed
+    ignore_errors: true
+    changed_when: false
+
+  - name: clean yum metadata on first run
+    shell: /usr/bin/yum clean all
+    when: epel_installed|failed
+
+  - name: upgrade all packages on first run
+    yum:
+      name: '*'
+      state: latest
+    when: epel_installed|failed
+
+  - name: Install LAMP stack
+    yum: name={{ item }} update_cache=yes state=latest
+    with_items:
+      - git
+      - htop
+      - dstat
+      - mosh
+      - tree
+      - httpd24
+      - php56
+      - php56-common
+      - php56-xml
+      - php56-pdo
+      - php56-opcache
+      - php56-pecl-apcu
+      - php56-mcrypt
+      - php56-process
+      - php56-soap
+      - php56-cli
+      - php56-mysqlnd
+      - php56-gd
+      - php56-gmp
+      - php56-mbstring
+      - php56-devel
+      - php56-imap
+      - php56-pecl-igbinary
+      - php56-pecl-igbinary-devel
+      - php56-pecl-redis.x86_64
+      - php56-pecl-imagick.x86_64
+
+  - name: Copy httpd.conf
+    template: src=../templates/httpd.conf.j2 dest=/etc/httpd/conf/httpd.conf
+
+  - name: Start and enable Apache
+    service: name=httpd state=started enabled=yes
+
+
