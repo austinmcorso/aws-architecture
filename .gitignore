@@ -1,1 +1,5 @@
 *.pem
+.vagrant
+terraform/terraform.tfvars
+terraform/terraform.tfstate*
+terraform/ssh
