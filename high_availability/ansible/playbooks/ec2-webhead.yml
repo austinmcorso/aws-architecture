@@ -56,5 +56,3 @@
 
   - name: Start and enable Apache
     service: name=httpd state=started enabled=yes
-
-
