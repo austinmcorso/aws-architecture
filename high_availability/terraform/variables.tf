@@ -4,6 +4,9 @@ variable "vpc_name" {}
 variable "password" {}
 variable "db_name" {}
 variable "username" {}
+variable "identifier" {}
+
+
 
 variable "region" {
     default = "us-east-1"
@@ -41,11 +44,6 @@ variable "amis" {
   default = {
     us-east-1 = "ami-6869aa05"
   }
-}
-
-variable "identifier" {
-  default = "prod-rds"
-  description = "Identifier for your DB"
 }
 
 variable "storage" {
