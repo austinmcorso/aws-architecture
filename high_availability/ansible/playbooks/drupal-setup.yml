@@ -4,6 +4,8 @@
   become_user: root
   become_method: sudo
   gather_facts: yes
+  vars:
+    - drush_update_packages: no
 
   tasks:
   - name: Copy settings.php
@@ -14,4 +16,41 @@
 
   - name: Execute provision script.
     command: /bin/bash /tmp/provision.sh
+
+  # tasks file for drush
+  - name: checking if /usr/local/bin/composer exists
+    stat: path=/usr/local/bin/composer
+    register: composer
+
+  - name: Ensuring /usr/local/composer exists
+    file: path=/usr/local/composer state=directory mode=0755
+
+  - name: Checking if /usr/local/composer/vendor/bin/drush exists
+    stat: path=/usr/local/composer/vendor/bin/drush
+    register: drush
+
+  - name: Grab Composer
+    get_url: url=https://getcomposer.org/installer dest=/tmp/
+    when: composer.stat.exists == False
+
+  - name: Install Composer
+    shell: /usr/bin/php /tmp/installer && mv composer.phar /usr/local/bin/composer
+    when: composer.stat.exists == False
+
+  - name: Installing Drush
+    shell: /usr/local/bin/composer -d=/usr/local/composer global require drush/drush:6.4.0
+    when: drush.stat.exists == False
+
+  - name: Updating composer components
+    shell: /usr/local/bin/composer -d=/usr/local/composer global update
+    when: drush_update_packages
+
+  - name: Create /opt/drush
+    file: path=/opt/drush state=directory mode=0755
+
+  - name: Create symlink for drush under /opt/drush
+    file: src=/usr/local/composer/vendor/bin/drush dest=/opt/drush/drush owner=root group=root state=link
+
+  - name: Create symlink for drush under /usr/local/bin
+    file: src=/opt/drush/drush dest=/usr/local/bin/drush owner=root group=root state=link
 
