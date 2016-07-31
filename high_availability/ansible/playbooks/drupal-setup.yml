@@ -1,0 +1,17 @@
+- hosts: ec2
+  serial: 1
+  become: yes
+  become_user: root
+  become_method: sudo
+  gather_facts: yes
+
+  tasks:
+  - name: Copy settings.php
+    template: src=../templates/settings.php.j2 dest=/var/www/html/sites/default/settings.php
+
+  - name: Copy provision.sh /tmp
+    template: src=../templates/provision.sh.j2 dest=/tmp/provision.sh
+
+  - name: Execute provision script.
+    command: /bin/bash /tmp/provision.sh
+
