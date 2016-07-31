@@ -2,6 +2,8 @@ variable "access_key" {}
 variable "secret_key" {}
 variable "vpc_name" {}
 variable "password" {}
+variable "db_name" {}
+variable "username" {}
 
 variable "region" {
     default = "us-east-1"
@@ -61,15 +63,6 @@ variable "instance_class" {
   description = "Instance class"
 }
 
-variable "db_name" {
-  default = "changeme"
-  description = "db name"
-}
-
-variable "username" {
-  default = "changeme"
-  description = "User name"
-}
 
 variable "rds_is_multi_az" {
       default = "true"
