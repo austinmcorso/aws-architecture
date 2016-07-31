@@ -53,4 +53,3 @@
 
   - name: Create symlink for drush under /usr/local/bin
     file: src=/opt/drush/drush dest=/usr/local/bin/drush owner=root group=root state=link
-
