@@ -1,3 +1,3 @@
-## Architecture Diagram
+# Architecture Diagram
 
 todo
