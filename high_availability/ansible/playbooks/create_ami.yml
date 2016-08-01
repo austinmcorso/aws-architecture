@@ -1,0 +1,16 @@
+# ansible-playbook playbook/create_ami.yml -e "target=us-east-1 instance_id=i-f022586e region=us-east-1 ami_image_name=imagename"
+- hosts: "{{ target }}"
+  tasks:
+  - name: create ami image
+    local_action: 
+      module: ec2_ami
+      instance_id: "{{ instance_id }}"
+      region: "{{ region }}"
+      state: present
+      description: This was provisioned {{ ansible_date_time.iso8601 }}
+      name: "{{ ami_image_name }}-{{ ansible_date_time.epoch }}"
+      wait: yes
+    register: amioutput
+
+  - debug: var=amioutput
+
