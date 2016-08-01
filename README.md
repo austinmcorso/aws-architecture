@@ -6,7 +6,7 @@ The goal - automate AWS infrastructure.
 
 - VPC
 - Internet Gateway
-- Route tables
+- Route tables (public and private)
 - Private subnets
 - Public subnets
 
@@ -17,17 +17,18 @@ The goal - automate AWS infrastructure.
 
 ## Infrastructure
 
-- Elastic Load Balancer
+- ElasticCache (memcache)
 - Elastic File System
+- Elastic Load Balancer
 - RDS
-- Elastic Cache
+- S3
 
 ## Security
+
 - security group for public servers
 - security group for internal network
 - security group for NAT
 - security group for RDS
-
 
 ## Tools
 The following tools are being used to provision our AWS Architecture.
