@@ -35,7 +35,7 @@ variable "public_subnet_two_cidr" {
 }
 
 variable "public_subnet_two_availability_zone" {
-  description = "Availability zone for public subnet one"
+  description = "Availability zone for public subnet two"
   default     = "us-east-1b"
 }
 
@@ -46,7 +46,7 @@ variable "private_subnet_one_cidr" {
 }
 
 variable "private_subnet_one_availability_zone" {
-  description = "Availability zone for public subnet one"
+  description = "Availability zone for private subnet one"
   default     = "us-east-1c"
 }
 
@@ -57,7 +57,7 @@ variable "private_subnet_two_cidr" {
 }
 
 variable "private_subnet_two_availability_zone" {
-  description = "Availability zone for public subnet one"
+  description = "Availability zone for private subnet two"
   default     = "us-east-1e"
 }
 
