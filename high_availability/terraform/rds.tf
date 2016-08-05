@@ -1,7 +1,7 @@
 resource "aws_db_subnet_group" "default_db_subnet_group" {
   name = "${var.vpc_name}-db_subnet_group"
   description = "Main group of private subnets"
-  subnet_ids = ["${aws_subnet.10030_us_east_1c_private.id}", "${aws_subnet.10040_us_east_1e_private.id}"]
+  subnet_ids = ["${aws_subnet.default_subnet_one_private.id}", "${aws_subnet.default_subnet_two_private.id}"]
 }
 
 resource "aws_db_instance" "default_rds" {

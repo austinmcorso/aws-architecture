@@ -1,24 +1,24 @@
-/* Private subnet 1c*/
-resource "aws_subnet" "10030_us_east_1c_private" {
+/* Private subnet one*/
+resource "aws_subnet" "default_subnet_one_private" {
   vpc_id            = "${aws_vpc.default_vpc.id}"
   cidr_block        = "${var.private_subnet_one_cidr}"
-  availability_zone = "us-east-1c"
+  availability_zone = "${var.private_subnet_one_availability_zone}"
   map_public_ip_on_launch = false
   depends_on = ["aws_internet_gateway.default_igw"]
   tags { 
-    Name = "${var.vpc_name} - 10.0.3.0 - us-east-1c - private" 
+    Name = "${var.vpc_name} - ${var.private_subnet_one_cidr} - ${var.private_subnet_one_availability_zone} - private" 
   }
 }
 
-/* Private subnet 1e*/
-resource "aws_subnet" "10040_us_east_1e_private" {
+/* Private subnet two*/
+resource "aws_subnet" "default_subnet_two_private" {
   vpc_id            = "${aws_vpc.default_vpc.id}"
   cidr_block        = "${var.private_subnet_two_cidr}"
-  availability_zone = "us-east-1e"
+  availability_zone = "${var.private_subnet_two_availability_zone}"
   map_public_ip_on_launch = false
   depends_on = ["aws_internet_gateway.default_igw"]
   tags { 
-    Name = "${var.vpc_name} - 10.0.4.0 - us-east-1e - private" 
+    Name = "${var.vpc_name} - ${var.private_subnet_two_cidr} - ${var.private_subnet_two_availability_zone} - private" 
   }
 }
 
@@ -31,14 +31,14 @@ resource "aws_route_table" "default_vpc_rt_private" {
 }
 
 /* Assign private routing table to private subnet */
-resource "aws_route_table_association" "10030_us_east_1c_private" {
-  subnet_id = "${aws_subnet.10030_us_east_1c_private.id}"
+resource "aws_route_table_association" "default_route_tabled_association_one_private" {
+  subnet_id = "${aws_subnet.default_subnet_one_private.id}"
   route_table_id = "${aws_route_table.default_vpc_rt_private.id}"
 }
 
 /* Assign private routing table to private subnet */
-resource "aws_route_table_association" "10040_us_east_1e_private" { 
-  subnet_id = "${aws_subnet.10040_us_east_1e_private.id}"
+resource "aws_route_table_association" "default_route_tabled_association_two_private" { 
+  subnet_id = "${aws_subnet.default_subnet_two_private.id}"
   route_table_id = "${aws_route_table.default_vpc_rt_private.id}"
 }
 
