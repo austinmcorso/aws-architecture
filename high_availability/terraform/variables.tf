@@ -85,8 +85,26 @@ variable "instance_class" {
   description = "Instance class"
 }
 
-
 variable "rds_is_multi_az" {
-      default = "true"
+  default = "true"
 }
 
+variable "public_app_server_amazon_linux_ami" {
+  default = "ami-6869aa05"
+}
+
+variable "public_app_server_amazon_redhat_ami" {
+  default = "ami-2051294a"
+}
+
+variable "public_app_server_amazon_ubuntu_ami" {
+  default = "ami-2d39803a"
+}
+
+variable "public_app_server_custom_ami" {
+  default = "ami-8d24b29a"
+}
+
+variable "public_app_server_instance_type" {
+  default = "t2.micro"
+}
