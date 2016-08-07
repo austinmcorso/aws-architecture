@@ -1,9 +1,11 @@
+/* Database Subnet Group */
 resource "aws_db_subnet_group" "default_db_subnet_group" {
   name = "${var.vpc_name}-db_subnet_group"
   description = "Main group of private subnets"
   subnet_ids = ["${aws_subnet.default_subnet_one_private.id}", "${aws_subnet.default_subnet_two_private.id}"]
 }
 
+/* Default RDS Instance */
 resource "aws_db_instance" "default_rds" {
   depends_on = ["aws_security_group.default_rds_sg"]
   identifier = "${var.identifier}"
@@ -18,6 +20,7 @@ resource "aws_db_instance" "default_rds" {
   db_subnet_group_name = "${aws_db_subnet_group.default_db_subnet_group.id}"
 }
 
+/* Default RDS Security Group */
 resource "aws_security_group" "default_rds_sg" {
   name = "${var.vpc_name}_rds_sg"
   description = "Allow all inbound traffic"
@@ -39,6 +42,11 @@ resource "aws_security_group" "default_rds_sg" {
 
   tags {
     Name = "${var.vpc_name}_rds_sg"
+    Environment = "${var.environment}"
   }
 }
 
+/* Output */
+output "database_host" {
+    value = "${aws_db_instance.default_rds.endpoint}"
+}
