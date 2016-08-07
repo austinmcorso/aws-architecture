@@ -1,7 +1,7 @@
 #!/bin/bash
 ANSIBLE_PULL=/opt/ansible/bin/ansible-pull
 ANSIBLE_PULL_REPO=https://github.com/chaunceyt/ansible-playbooks.git
-ANSIBLE_PULL_BRANCH=lightning
+ANSIBLE_PULL_BRANCH=master
 yum -y install git
 
 cd /opt
