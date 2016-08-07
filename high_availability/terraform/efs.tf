@@ -127,4 +127,6 @@ resource "aws_efs_mount_target" "default_efs_mount_target_two_private" {
   security_groups = ["${aws_security_group.default_security_group_target_two_private.id}"]
 }
 
-
+output "efs_id" {
+  value = "${aws_efs_file_system.default_efs.id}"
+}
