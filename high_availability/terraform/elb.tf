@@ -34,9 +34,10 @@ resource "aws_elb" "default_elb" {
   connection_draining = true
   connection_draining_timeout = 400
 
-  access_logs {
-    bucket = "${var.vpc_name}_log_bucket"
-  }
+  # TODO: Create access policy for logging to S3
+  #access_logs {
+  #  bucket = "${var.vpc_name}_log_bucket"
+  #}
 
   tags {
     Name = "${var.vpc_name}-elb"
@@ -77,6 +78,7 @@ resource "aws_elb" "default_elb_internal" {
     interval = 30
   }
 
+  # TODO: managed via asg
   #instances = [
   #  "${aws_instance.web_one_public_server.*.id}",
   #  "${aws_instance.web_two_public_server.*.id}"
@@ -87,9 +89,10 @@ resource "aws_elb" "default_elb_internal" {
   connection_draining = true
   connection_draining_timeout = 400
 
-  access_logs {
-    bucket = "${var.vpc_name}_log_bucket"
-  }
+  # TODO: Create access policy for logging to S3
+  #access_logs {
+  #  bucket = "${var.vpc_name}_log_bucket"
+  #}
 
   tags {
     Name = "${var.vpc_name}-elb"
