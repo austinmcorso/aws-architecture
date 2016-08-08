@@ -1,6 +1,7 @@
 #!/bin/bash
 ANSIBLE_PULL=/opt/ansible/bin/ansible-pull
 ANSIBLE_PULL_REPO=https://github.com/chaunceyt/ansible-playbooks.git
+ANSIBLE_GITHUB_REPO_URL=https://github.com/ansible/ansible.git
 ANSIBLE_PULL_BRANCH=lightning
 
 # Install Git.
@@ -8,7 +9,7 @@ yum -y install git
 
 # Checkout Ansible project code.
 cd /opt
-git clone git://github.com/ansible/ansible.git --recursive
+git clone $ANSIBLE_GITHUB_REPO_URL --recursive
 
 # Setup environment.
 source /opt/ansible/hacking/env-setup
