@@ -1,3 +1,4 @@
+/* High Availability ELB environment */
 # Create a elastic load balancer
 resource "aws_elb" "default_elb" {
   name = "${var.vpc_name}-elb"
