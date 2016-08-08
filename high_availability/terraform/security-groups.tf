@@ -98,8 +98,8 @@ resource "aws_security_group" "default_public_servers_sg" {
   }
 
   egress {
-    from_port   = "0"
-    to_port     = "0"
+    from_port   = 0
+    to_port     = 0
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
@@ -109,3 +109,35 @@ resource "aws_security_group" "default_public_servers_sg" {
   }
 }
 
+/* Default internal Security Group */
+resource "aws_security_group" "default_internal_sg" {
+  name = "${var.vpc_name}_internal_sg"
+  description = "Allow all inbound traffic"
+  vpc_id = "${aws_vpc.default_vpc.id}"
+
+  ingress {
+    from_port = 8 
+    to_port = 0 
+    protocol = "icmp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port = 0
+    to_port = 65535
+    protocol = "TCP"
+    cidr_blocks = ["${var.vpc_cidr}"]
+  }
+
+  egress {
+    from_port = 0
+    to_port = 0
+    protocol = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags {
+    Name = "${var.vpc_name}_internal_sg"
+    Environment = "${var.environment}"
+  }
+}
