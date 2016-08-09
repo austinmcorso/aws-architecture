@@ -101,4 +101,10 @@ resource "aws_elb" "default_elb_internal" {
   }
 }
 
+output "public_elb" {
+    value = "${aws_elb.default_elb.id}"
+}
 
+output "internal_elb" {
+    value = "${aws_elb.default_elb_internal.id}"
+}
