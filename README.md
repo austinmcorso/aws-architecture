@@ -14,7 +14,7 @@ Purpose: Automate a High Availability Web Application environment within the AWS
 
 - NAT server on public subnet - gateway for systems on private network http, https (inbound/outbound)
 - OpenVPN server on public subnet(s)
-- AutoScale Group (desired 3, min 3, max 6) internal / public
+- AutoScale Group (desired 2, min 2, max 6) internal / public
 
 ## Infrastructure
 
