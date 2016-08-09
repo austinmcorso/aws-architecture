@@ -25,7 +25,7 @@ variable "private_subnet_one_cidr" {}
 variable "private_subnet_two_cidr" {}
 
 variable "environment" {
-  default = "PROD"
+  default = "prod"
 }
 
 variable "public_subnet_one_availability_zone" {
