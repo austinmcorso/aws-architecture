@@ -25,11 +25,6 @@ resource "aws_elb" "default_elb" {
     interval = 30
   }
 
-  instances = [
-    "${aws_instance.web_one_public_server.*.id}",
-    "${aws_instance.web_two_public_server.*.id}"
-  ]
-
   cross_zone_load_balancing = true
   idle_timeout = 400
   connection_draining = true
