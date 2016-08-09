@@ -1,6 +1,6 @@
 # AWS Architecture
 
-The goal - automate AWS infrastructure.
+Purpose: Automate a High Availability Web Application environment within the AWS infrastructure.
 
 ## Network
 
@@ -13,14 +13,15 @@ The goal - automate AWS infrastructure.
 ## EC2
 
 - NAT server on public subnet - gateway for systems on private network http, https (inbound/outbound)
-- OPenVPN server on public subnet
+- OpenVPN server on public subnet(s)
+- AutoScale Group (desired 3, min 3, max 6) internal / public
 
 ## Infrastructure
 
 - ElasticCache (memcache)
 - Elastic File System
-- Elastic Load Balancer
-- RDS
+- Elastic Load Balancer (public and internal)
+- RDS Multi AZ (mariadb)
 - S3
 
 ## Security
@@ -33,6 +34,6 @@ The goal - automate AWS infrastructure.
 ## Tools
 The following tools are being used to provision our AWS Architecture.
 
-- Terraform
-- Ansible
+- Terraform - used to create AWS environment
+- Ansible - used to provision systems on startup using ansible-pull
 
