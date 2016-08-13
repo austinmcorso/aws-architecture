@@ -64,6 +64,18 @@ resource "aws_security_group" "default_nat_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
+  ingress {
+    from_port = -1
+    to_port = -1
+    protocol = "icmp"
+    cidr_blocks = ["${var.private_subnet_one_cidr}", "${var.private_subnet_two_cidr}"]
+  }
+  egress {
+    from_port = 0
+    to_port = 0
+    protocol = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
 
   tags { 
     Name = "${var.vpc_name}-nat-sg" 
@@ -139,5 +151,44 @@ resource "aws_security_group" "default_internal_sg" {
   tags {
     Name = "${var.vpc_name}_internal_sg"
     Environment = "${var.environment}"
+  }
+}
+
+resource "aws_security_group" "default_security_group_bastion_sg" {
+  name = "${var.vpc_name}-bastion-ssh"
+  description = "Allow SSH to Bastion host"
+  ingress {
+    from_port = 22
+    to_port = 22
+    protocol = "tcp"
+    cidr_blocks = ["${var.bastion_allow_ip_range}"]
+  }
+  egress {
+    from_port = 0
+    to_port = 0
+    protocol = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  vpc_id = "${aws_vpc.default_vpc.id}"
+  tags {
+      Name = "${var.vpc_name}_bastion_ssh"
+  }
+}
+
+resource "aws_security_group" "default_security_group_from_bastion_sg" {
+  name = "ssh_from_bastion"
+  description = "Allow SSH from Bastion host(s)"
+  ingress {
+    from_port = 22
+    to_port = 22
+    protocol = "tcp"
+    security_groups = [
+      "${aws_security_group.default_security_group_bastion_sg.id}",
+      "${aws_security_group.default_nat_sg.id}"
+    ]
+  }
+  vpc_id = "${aws_vpc.default_vpc.id}"
+  tags {
+      Name = "${var.vpc_name}_ssh_from_bastion"
   }
 }

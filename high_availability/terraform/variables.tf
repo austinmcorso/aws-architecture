@@ -102,3 +102,12 @@ variable "public_app_server_instance_type" {
   description = "Instance type, see a list at: https://aws.amazon.com/ec2/instance-types/"
   default = "t2.micro"
 }
+
+variable "bastion_server_instance_type" {
+  description = "Instance type, see a list at: https://aws.amazon.com/ec2/instance-types/"
+  default = "t2.small"
+}
+
+variable "bastion_allow_ip_range" {
+  default = "0.0.0.0/0"
+}
