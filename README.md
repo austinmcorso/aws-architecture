@@ -77,7 +77,9 @@ Now lets test network.
 
 By default, the stack exposes the following ports:
 
-- 5000: Logstash TCP input. - Add some test data.
+- 5000: Logstash TCP input. - Connect to one of the XXX-elkXX-private-servers and add some test data. 
+
+```ssh XXX-elkXX-private-servers.ipaddress -i ssh/aws-terraform -l ec2user```
 
 ```bash
 nc localhost 5000 < /var/log/messages
