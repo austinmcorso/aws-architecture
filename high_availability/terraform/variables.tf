@@ -1,5 +1,6 @@
 variable "access_key" {}
 variable "secret_key" {}
+variable "account_id" {}
 variable "vpc_name" {}
 variable "password" {}
 variable "db_name" {}
