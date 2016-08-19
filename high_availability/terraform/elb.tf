@@ -2,6 +2,7 @@
 # Create a elastic load balancer
 resource "aws_elb" "default_elb" {
   name = "${var.vpc_name}-elb"
+  depends_on = ["aws_s3_bucket.default_s3_log_bucket"]
   security_groups = [
     "${aws_security_group.default_public_servers_sg.id}"
   ]
@@ -22,7 +23,7 @@ resource "aws_elb" "default_elb" {
     unhealthy_threshold = 2
     timeout = 3
     target = "HTTP:80/"
-    interval = 30
+    interval = 10
   }
 
   cross_zone_load_balancing = true
@@ -32,7 +33,7 @@ resource "aws_elb" "default_elb" {
 
   # TODO: Create access policy for logging to S3
   #access_logs {
-  #  bucket = "${var.vpc_name}_log_bucket"
+  #  bucket = "${var.vpc_name}-log-bucket"
   #}
 
   tags {
@@ -42,17 +43,18 @@ resource "aws_elb" "default_elb" {
 }
 
 /* setup stickiness */
-resource "aws_lb_cookie_stickiness_policy" "default_lb_cookie_stickiness_policy" {
-      name = "${var.vpc_name}-lbpolicy"
-      load_balancer = "${aws_elb.default_elb.id}"
-      lb_port = 80
-      cookie_expiration_period = 600
-}
+#resource "aws_lb_cookie_stickiness_policy" "default_lb_cookie_stickiness_policy" {
+#      name = "${var.vpc_name}-lbpolicy"
+#      load_balancer = "${aws_elb.default_elb.id}"
+#      lb_port = 80
+#      cookie_expiration_period = 600
+#}
 
 resource "aws_elb" "default_elb_internal" {
   name = "${var.vpc_name}-int-elb"
+  internal = true
   security_groups = [
-    "${aws_security_group.default_public_servers_sg.id}"
+    "${aws_security_group.default_internal_sg.id}"
   ]
   subnets = [
     "${aws_subnet.default_subnet_one_private.id}",
@@ -71,14 +73,8 @@ resource "aws_elb" "default_elb_internal" {
     unhealthy_threshold = 2
     timeout = 3
     target = "HTTP:80/"
-    interval = 30
+    interval = 10
   }
-
-  # TODO: managed via asg
-  #instances = [
-  #  "${aws_instance.web_one_public_server.*.id}",
-  #  "${aws_instance.web_two_public_server.*.id}"
-  #]
 
   cross_zone_load_balancing = true
   idle_timeout = 400
@@ -91,7 +87,7 @@ resource "aws_elb" "default_elb_internal" {
   #}
 
   tags {
-    Name = "${var.vpc_name}-elb"
+    Name = "${var.vpc_name}-int-elb"
 
   }
 }
