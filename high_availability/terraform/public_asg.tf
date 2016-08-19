@@ -46,7 +46,7 @@ resource "aws_launch_configuration" "default_launch_config_public" {
   }
 }
 
-resource "aws_autoscaling_policy" "default_autoscaling_policy_scale_up" {
+resource "aws_autoscaling_policy" "default_autoscaling_policy_scale_up_public" {
   name = "${var.vpc_name}-default-scale-up-${var.environment}"
   scaling_adjustment = 1
   adjustment_type = "ChangeInCapacity"
@@ -58,7 +58,7 @@ resource "aws_autoscaling_policy" "default_autoscaling_policy_scale_up" {
   }
 }
 
-resource "aws_autoscaling_policy" "default_autoscaling_policy_scale_down" {
+resource "aws_autoscaling_policy" "default_autoscaling_policy_scale_down_public" {
   name = "${var.vpc_name}-default-scale-down-${var.environment}"
   scaling_adjustment = -1
   adjustment_type = "ChangeInCapacity"
@@ -70,7 +70,7 @@ resource "aws_autoscaling_policy" "default_autoscaling_policy_scale_down" {
   }
 }
 
-resource "aws_cloudwatch_metric_alarm" "default_autoscaling_policy_cpu_up" {
+resource "aws_cloudwatch_metric_alarm" "default_autoscaling_policy_cpu_up_public" {
     alarm_name = "${var.vpc_name}__cpu_down_${var.environment}"
     comparison_operator = "GreaterThanOrEqualToThreshold"
     evaluation_periods = "2"
@@ -83,14 +83,14 @@ resource "aws_cloudwatch_metric_alarm" "default_autoscaling_policy_cpu_up" {
         AutoScalingGroupName = "${aws_autoscaling_group.default_autoscaling_group_public.name}"
     }
     alarm_description = "This metric monitor ec2 cpu utilization"
-    alarm_actions = ["${aws_autoscaling_policy.default_autoscaling_policy_scale_up.arn}"]
+    alarm_actions = ["${aws_autoscaling_policy.default_autoscaling_policy_scale_up_public.arn}"]
 
    lifecycle {
     create_before_destroy = true
   }
 }
 
-resource "aws_cloudwatch_metric_alarm" "default_autoscaling_policy_cpu_down" {
+resource "aws_cloudwatch_metric_alarm" "default_autoscaling_policy_cpu_down_public" {
     alarm_name = "${var.vpc_name}_cpu_down_${var.environment}"
     comparison_operator = "LessThanOrEqualToThreshold"
     evaluation_periods = "4"
@@ -103,7 +103,7 @@ resource "aws_cloudwatch_metric_alarm" "default_autoscaling_policy_cpu_down" {
         AutoScalingGroupName = "${aws_autoscaling_group.default_autoscaling_group_public.name}"
     }
     alarm_description = "This metric monitor ec2 cpu utilization"
-    alarm_actions = ["${aws_autoscaling_policy.default_autoscaling_policy_scale_down.arn}"]
+    alarm_actions = ["${aws_autoscaling_policy.default_autoscaling_policy_scale_down_public.arn}"]
   lifecycle {
     create_before_destroy = true
   }
