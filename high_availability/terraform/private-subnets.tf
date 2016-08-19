@@ -25,10 +25,10 @@ resource "aws_subnet" "default_subnet_two_private" {
 /* Create routing table for private subnet(s) */
 resource "aws_route_table" "default_vpc_rt_private" {
   vpc_id = "${aws_vpc.default_vpc.id}"
-  depends_on = ["aws_instance.nat_gateway"]
+  depends_on = ["aws_nat_gateway.nat_gateway"]
   route {
     cidr_block = "0.0.0.0/0"
-    instance_id = "${aws_instance.nat_gateway.id}"
+    nat_gateway_id = "${aws_nat_gateway.nat_gateway.id}"
   }
   tags {
     Name = "${var.vpc_name}-rt-private"
