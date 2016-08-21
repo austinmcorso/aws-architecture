@@ -8,7 +8,9 @@ resource "aws_elb" "default_elb" {
   ]
   subnets = [
     "${aws_subnet.default_subnet_one_public.id}",
-    "${aws_subnet.default_subnet_two_public.id}"
+    "${aws_subnet.default_subnet_two_public.id}",
+    "${aws_subnet.default_subnet_three_public.id}",
+    "${aws_subnet.default_subnet_four_public.id}"
   ]
 
   listener {

@@ -19,33 +19,45 @@ variable "public_subnet_one_cidr" {}
 /* Public Subnet two */
 variable "public_subnet_two_cidr" {}
 
+/* Public Subnet three */
+variable "public_subnet_three_cidr" {}
+
+/* Public Subnet four */
+variable "public_subnet_four_cidr" {}
+
 /* Private Subnet one */
 variable "private_subnet_one_cidr" {}
 
 /* Private Subnet two */
 variable "private_subnet_two_cidr" {}
 
+/* Private Subnet three */
+variable "private_subnet_three_cidr" {}
+
+/* Private Subnet four */
+variable "private_subnet_four_cidr" {}
+
 variable "environment" {
   default = "prod"
 }
 
-variable "public_subnet_one_availability_zone" {
-  description = "Availability zone for public subnet one"
+variable "availability_zone_one" {
+  description = "Availability zone one"
   default     = "us-east-1a"
 }
 
-variable "public_subnet_two_availability_zone" {
-  description = "Availability zone for public subnet two"
+variable "availability_zone_two" {
+  description = "Availability zone two"
   default     = "us-east-1b"
 }
 
-variable "private_subnet_one_availability_zone" {
-  description = "Availability zone for private subnet one"
+variable "availability_zone_three" {
+  description = "Availability zone three"
   default     = "us-east-1c"
 }
 
-variable "private_subnet_two_availability_zone" {
-  description = "Availability zone for private subnet two"
+variable "availability_zone_four" {
+  description = "Availability zone four"
   default     = "us-east-1e"
 }
 

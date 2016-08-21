@@ -54,6 +54,54 @@ resource "aws_security_group" "default_security_group_target_two_public" {
   }
 }
 
+resource "aws_security_group" "default_security_group_target_three_public" {
+  name = "${var.vpc_name}_efs_three_public"
+  description = "Allow all inbound traffic"
+  vpc_id = "${aws_vpc.default_vpc.id}"
+
+  ingress {
+    from_port = 0
+    to_port = 65535
+    protocol = "TCP"
+    cidr_blocks = ["${var.public_subnet_three_cidr}"]
+  }
+
+  egress {
+    from_port = 0
+    to_port = 0
+    protocol = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags {
+    Name = "${var.vpc_name}_efs_three_public-sg"
+  }
+}
+
+resource "aws_security_group" "default_security_group_target_four_public" {
+  name = "${var.vpc_name}_efs_four_public"
+  description = "Allow all inbound traffic"
+  vpc_id = "${aws_vpc.default_vpc.id}"
+
+  ingress {
+    from_port = 0
+    to_port = 65535
+    protocol = "TCP"
+    cidr_blocks = ["${var.public_subnet_four_cidr}"]
+  }
+
+  egress {
+    from_port = 0
+    to_port = 0
+    protocol = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags {
+    Name = "${var.vpc_name}_efs_four_public-sg"
+  }
+}
+
 resource "aws_security_group" "default_security_group_target_one_private" {
   name = "${var.vpc_name}_efs_one_private"
   description = "Allow all inbound traffic"
@@ -113,6 +161,19 @@ resource "aws_efs_mount_target" "default_efs_mount_target_two_public" {
   file_system_id = "${aws_efs_file_system.default_efs.id}"
   subnet_id = "${aws_subnet.default_subnet_two_public.id}"
   security_groups = ["${aws_security_group.default_security_group_target_two_public.id}"]
+}
+
+/* EFS mount points on public subnets */
+resource "aws_efs_mount_target" "default_efs_mount_target_three_public" {
+  file_system_id = "${aws_efs_file_system.default_efs.id}"
+  subnet_id = "${aws_subnet.default_subnet_three_public.id}"
+  security_groups = ["${aws_security_group.default_security_group_target_three_public.id}"]
+}
+
+resource "aws_efs_mount_target" "default_efs_mount_target_four_public" {
+  file_system_id = "${aws_efs_file_system.default_efs.id}"
+  subnet_id = "${aws_subnet.default_subnet_four_public.id}"
+  security_groups = ["${aws_security_group.default_security_group_target_four_public.id}"]
 }
 
 /* EFS mount points on private subnets */

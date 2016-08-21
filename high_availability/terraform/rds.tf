@@ -2,7 +2,12 @@
 resource "aws_db_subnet_group" "default_db_subnet_group" {
   name = "${var.vpc_name}-db_subnet_group"
   description = "Main group of private subnets"
-  subnet_ids = ["${aws_subnet.default_subnet_one_private.id}", "${aws_subnet.default_subnet_two_private.id}"]
+  subnet_ids = [
+    "${aws_subnet.default_subnet_one_private.id}",
+    "${aws_subnet.default_subnet_two_private.id}",
+    "${aws_subnet.default_subnet_three_private.id}",
+    "${aws_subnet.default_subnet_four_private.id}"
+    ]
 }
 
 /* Default RDS Instance */
