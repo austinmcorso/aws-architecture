@@ -3,6 +3,7 @@ ANSIBLE_PULL=/opt/ansible/bin/ansible-pull
 ANSIBLE_PULL_REPO=https://github.com/chaunceyt/ansible-playbooks.git
 ANSIBLE_GITHUB_REPO_URL=https://github.com/ansible/ansible.git
 ANSIBLE_PULL_BRANCH=master
+yum -y update
 yum -y install git
 
 cd /opt

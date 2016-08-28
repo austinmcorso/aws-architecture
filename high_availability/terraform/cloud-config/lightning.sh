@@ -4,7 +4,8 @@ ANSIBLE_PULL_REPO=https://github.com/chaunceyt/ansible-playbooks.git
 ANSIBLE_GITHUB_REPO_URL=https://github.com/ansible/ansible.git
 ANSIBLE_PULL_BRANCH=lightning
 
-# Install Git.
+# Update system
+yum -y update
 yum -y install git
 
 # Checkout Ansible project code.
