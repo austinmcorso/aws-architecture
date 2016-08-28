@@ -17,6 +17,7 @@ resource "aws_db_instance" "default_rds" {
   allocated_storage = "${var.storage}"
   engine = "${var.engine}"
   instance_class = "${var.instance_class}"
+  backup_retention_period = 35
   name = "${var.db_name}"
   username = "${var.username}"
   password = "${var.password}"
