@@ -4,6 +4,7 @@ variable "account_id" {}
 variable "vpc_name" {}
 variable "password" {}
 variable "db_name" {}
+variable "memcached_name" {}
 variable "username" {}
 variable "identifier" {}
 

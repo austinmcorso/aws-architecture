@@ -7,10 +7,6 @@ resource "aws_security_group" "default_memcached_sg" {
   }
 }
 
-variable "memcached_name" {
-  default = "sitecacheengine"
-}
-
 variable "cache_nodes" {
   default = "1"
 }
